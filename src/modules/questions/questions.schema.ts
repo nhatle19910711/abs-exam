@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import * as paginate from 'mongoose-paginate-v2';
 
 export type QuestionDocument = HydratedDocument<Question>;
 
@@ -9,7 +10,7 @@ export class Answer {
   a: string;
 
   @Prop()
-  b: number;
+  b: string;
 
   @Prop()
   c: string;
@@ -21,9 +22,7 @@ export class Answer {
   e: string;
 }
 
-
-
-@Schema()
+@Schema({timestamps: true})
 export class Question {
   @Prop({type: String, required: true})
   title: string;
@@ -33,6 +32,13 @@ export class Question {
 
   @Prop({type: String, required: true})
   answer: string;
+
+  @Prop({type: String, required: true})
+  category: string;
 }
 
-export const QuestionSchema = SchemaFactory.createForClass(Question);
+const QuestionSchema = SchemaFactory.createForClass(Question);
+QuestionSchema.plugin(paginate)
+QuestionSchema.index({ createdAt: -1 });
+
+export {QuestionSchema}

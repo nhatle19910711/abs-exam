@@ -12,6 +12,107 @@
           }
         }
       }
+    },
+    "/api/exam/questions/{id}": {
+      "get": {
+        "operationId": "getQuestion",
+        "summary": "",
+        "description": "Get detail a question",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get detail a question",
+            "schema": {
+              "$ref": "#/definitions/QuestionResponse"
+            }
+          }
+        },
+        "tags": [
+          "Questions"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      },
+      "patch": {
+        "operationId": "updateQuestion",
+        "summary": "",
+        "description": "Update question",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string"
+          },
+          {
+            "required": true,
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateQuestionDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update question",
+            "schema": {
+              "$ref": "#/definitions/QuestionResponse"
+            }
+          }
+        },
+        "tags": [
+          "Questions"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/exam/questions": {
+      "post": {
+        "operationId": "createQuestion",
+        "summary": "",
+        "description": "Create a new question",
+        "parameters": [
+          {
+            "required": true,
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/QuestionDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create a new question",
+            "schema": {
+              "$ref": "#/definitions/QuestionResponse"
+            }
+          }
+        },
+        "tags": [
+          "Questions"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "info": {
@@ -27,7 +128,91 @@
     "http"
   ],
   "basePath": "/",
-  "definitions": {},
+  "definitions": {
+    "QuestionResponse": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "answers": {
+          "type": "object"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "answers",
+        "answer",
+        "category"
+      ]
+    },
+    "AnswersDto": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "string"
+        },
+        "b": {
+          "type": "string"
+        },
+        "c": {
+          "type": "string"
+        },
+        "d": {
+          "type": "string"
+        },
+        "e": {
+          "type": "string"
+        }
+      }
+    },
+    "QuestionDto": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "answers": {
+          "$ref": "#/definitions/AnswersDto"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "answers",
+        "answer",
+        "category"
+      ]
+    },
+    "UpdateQuestionDto": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "answers": {
+          "$ref": "#/definitions/AnswersDto"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        }
+      }
+    }
+  },
   "securityDefinitions": {
     "access-token": {
       "type": "apiKey",

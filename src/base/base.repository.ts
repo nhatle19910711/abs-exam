@@ -21,7 +21,7 @@ export abstract class BaseRepository<T extends Document> {
   }
 
   async create(data: object) {
-    return this.entityModel.create(data);
+    return (await this.entityModel.create(data)).toObject();
   }
 
   async update(query: FilterQuery<T>, data: object) {

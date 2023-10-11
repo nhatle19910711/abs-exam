@@ -13,6 +13,158 @@
           }
         }
       }
+    },
+    "/api/exam/questions/{id}": {
+      "get": {
+        "operationId": "getQuestion",
+        "summary": "",
+        "description": "Get detail a question",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get detail a question",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Questions"
+        ]
+      },
+      "patch": {
+        "operationId": "updateQuestion",
+        "summary": "",
+        "description": "Update question",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQuestionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update question",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Questions"
+        ]
+      }
+    },
+    "/api/exam/questions": {
+      "post": {
+        "operationId": "createQuestion",
+        "summary": "",
+        "description": "Create a new question",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create a new question",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Questions"
+        ]
+      }
+    },
+    "/api/exam/questions/excel": {
+      "post": {
+        "operationId": "createQuestionsByExcelFile",
+        "summary": "",
+        "description": "Create multiple questions by excel file",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "description": "Create multiple questions",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ],
+                "$ref": "#/components/schemas/"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create multiple questions by excel file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestionResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Questions"
+        ]
+      }
     }
   },
   "info": {
@@ -35,6 +187,90 @@
         "name": "access-token"
       }
     },
-    "schemas": {}
+    "schemas": {
+      "QuestionResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "answers": {
+            "type": "object"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "answers",
+          "answer",
+          "category"
+        ]
+      },
+      "AnswersDto": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "string"
+          },
+          "b": {
+            "type": "string"
+          },
+          "c": {
+            "type": "string"
+          },
+          "d": {
+            "type": "string"
+          },
+          "e": {
+            "type": "string"
+          }
+        }
+      },
+      "QuestionDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "answers": {
+            "$ref": "#/components/schemas/AnswersDto"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "answers",
+          "answer",
+          "category"
+        ]
+      },
+      "UpdateQuestionDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "answers": {
+            "$ref": "#/components/schemas/AnswersDto"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          }
+        }
+      }
+    }
   }
 }
