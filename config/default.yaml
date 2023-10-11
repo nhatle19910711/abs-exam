@@ -1,0 +1,15 @@
+service:
+  name: api-exam
+  description: API Examination
+  baseUrl: /api/exam
+  docsBaseUrl: /docs/exam
+  apiVersion: 1.0.0
+  appVersion: 1.0.0
+
+server:
+  host: 127.0.0.1
+  port: 3099
+  hostname: 127.0.0.1:3099
+  swaggerSchema: http
+
+mongodbUri: mongodb+srv://lenguyen20211:Z9hWALLoXLd8uepf@cluster0.u19lvvr.mongodb.net/?retryWrites=true&w=majority
